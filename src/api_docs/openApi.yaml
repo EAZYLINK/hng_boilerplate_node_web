@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  title: HNG Openapi Nodejs Docs
+  version: 1.0.0
+  description: Api Documentation for nodejs boilerplate
+servers:
+  - url: http://localhost:5000
+paths:
+  /api/v1/users:
+    post:
+      summary: create a new user account
+      requestBody:
+        content:
+         application/json:
+          schema:
+           $ref: '#/components/schemas/User'
+      responses:
+        "201":
+          description: registration successful
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+    get:
+      summary: get all users account
+      security:
+        - bearerAuth: [] 
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      requestBody:
+        content:
+         application/json:
+          schema:
+           $ref: '#/components/schemas/User'
+      responses:
+        "201":
+          description: registration successful
+  /api/v1/auth/login:  
+    post:
+      summary: login a user
+      requestBody:
+        content:
+         application/json:
+          schema:
+           $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: login successful
+        '401':
+          description: Unauthenticated
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+        
