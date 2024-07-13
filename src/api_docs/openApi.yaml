@@ -435,3 +435,21 @@ components:
           type: int64
         status:
           type: string
+    Post:
+      type: object
+      properties:
+        userId:
+          type: int64
+        title:
+          type: string
+        body:
+          type: string
+    Comment:
+      type: object
+      properties:
+        userId:
+          type: int64
+        postId:
+          type: int64
+        comment:
+          type: string
