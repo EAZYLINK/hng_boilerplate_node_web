@@ -105,6 +105,75 @@ paths:
           application/json:
             schema:
               $ref: ''
+  /api/v1/payment:
+    post:
+      summary: Make payment for an order
+      security:
+        bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/payment'
+      responses:
+        "201":
+          description: payment completed successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    get:
+      summary: Get all payments
+      security:
+        bearerAuth: []
+      responses:
+        "200":
+          description: Payments retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+  /api/v1/payment/:paymentId:
+    get:
+      summary: Get a single payment
+      security:
+        bearerAuth: []
+      params: paymentId
+      responses:
+        "200":
+          description: Payments retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+    patch: 
+      summary: Update payment details
+      security:
+        - bearerAuth: []
+      params: paymentId
+      requestBody:
+        content:
+          schema:
+            $ref: '#/components/schemas/Payment'
+      responses:
+        "200":
+          description: Payment updated successfully
+        "404":
+          description: Payment with supplied ID not found
+    delete:
+      summary: delete a single payment
+      security:
+        - bearerAuth: []
+      params: userId
+      responses:
+        "200":
+          description: Payment deleted successfully
+        "404":
+          description: Payment not found
 components:
   securitySchemes:
     bearerAuth:
