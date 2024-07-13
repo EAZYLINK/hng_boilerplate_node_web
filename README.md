@@ -4,7 +4,12 @@
 
 [Description]
 
-<img align="right" width="300" src="C:\Users\User\Desktop\Learn2\hng_boilerplate_node_web\src\database\hng_dbschema.png" alt="Database Schema" />
+
+## Database Schema
+![Database Schema](src\database\hng_dbschema.png "Database Schema")
+
+## Api Documentation
+[Api documentation](src\api_docs\openApi.yaml)
 
 ## Folder Structure
 
