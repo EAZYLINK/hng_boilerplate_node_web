@@ -6,7 +6,7 @@
 
 
 ## Database Schema
-![Database Schema](src/database/hng_dbschema.png "Database Schema")
+![Database Schema](src/dataBase/hng_dbschema.png "Database Schema")
 
 ## Api Documentation
 [Api documentation](src/api_docs/openApi.yaml)
