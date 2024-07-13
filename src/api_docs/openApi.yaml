@@ -45,7 +45,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Register"
+              $ref: "#/components/schemas/User"
       responses:
         "201":
           description: Account registration successful
@@ -378,21 +378,6 @@ components:
         id:
           type: integer
           format: int64
-        username:
-          type: string
-        email:
-          type: string
-          format: email
-        password:
-          type: string
-      required:
-        - id
-        - username
-        - email
-        - password
-    Register:
-      type: object
-      properties:
         username:
           type: string
         email:
