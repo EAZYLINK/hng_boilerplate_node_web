@@ -95,6 +95,49 @@ paths:
           description: Account deleted successfully
         "404":
           description: Account not found
+  /api/v1/order:
+    post:
+      summary: Create an order
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          schema:
+            $ref: '#/components/schemas/Order'
+      responses:
+        "200": 
+          description: 'order successfully created'
+        "404":
+          description: 'order not created'
+    get:
+      summary: Get all orders
+      security: 
+        - bearerAuth: []
+      responses:
+        "200":
+          description: 'orders retrieved successfully'
+        "404":
+          description: 'orders not found'
+  /api/v1/order/:id:
+    get:
+      summary: Get a single order
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "order retrieved successfully"
+        "404":
+          description: "order not found"
+    patch:
+      summary: Update an order
+      security:
+        -bearerAuth: []
+      responses:
+        "200":
+          description: "order updated successfully"
+        "404":
+          description: "order not found"
+
   /api/v1/organisation:
     post:
       summary: Create an organisation
