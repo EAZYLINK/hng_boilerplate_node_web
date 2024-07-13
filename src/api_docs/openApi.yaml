@@ -376,7 +376,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Blog_post"
+              $ref: "#/components/schemas/Post"
       responses:
         "201":
           description: Blog post created successfully
@@ -431,7 +431,7 @@ paths:
         required: true
         content:
           schema:
-            $ref: "#/components/schemas/Blog_post"
+            $ref: "#/components/schemas/Post"
       responses:
         "200":
           description: Blog post updated successfully
@@ -468,7 +468,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Comments"
+              $ref: "#/components/schemas/Comment"
       responses:
         "201":
           description: Comment submitted successfully
