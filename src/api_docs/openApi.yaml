@@ -12,6 +12,7 @@ paths:
       security:
         - bearerAuth: []
       requestBody:
+        required: true
         content:
          application/json:
           schema:
@@ -39,6 +40,7 @@ paths:
     post:
       summary: User creates their account
       requestBody:
+        required: true
         content:
          application/json:
           schema:
@@ -53,6 +55,7 @@ paths:
     post:
       summary: login a user
       requestBody:
+        required: true
         content:
          application/json:
           schema:
@@ -63,12 +66,17 @@ paths:
         "400": 
           description: Bad request
   
-  /api/v1/user/:userId:
+  /api/v1/user/{userId}:
     get:
       summary: Get a single user account
       security:
         - bearerAuth: []
-      params: userId
+      parameters: 
+        - name : userId
+          in: path
+          required: true
+          schema:
+           type: string
       responses:
         "200":
           description: Account retrieved successfully
@@ -78,7 +86,12 @@ paths:
       summary: Update user account
       security:
         - bearerAuth: []
-      params: userId
+      parameters: 
+        - name : userId
+          in: path
+          required: true
+          schema:
+           type: string
       requestBody:
         content:
           schema:
@@ -92,7 +105,12 @@ paths:
       summary: delete a single user account
       security:
         - bearerAuth: []
-      params: userId
+      parameters: 
+        - name : userId
+          in: path
+          required: true
+          schema:
+           type: string
       responses:
         "200":
           description: Account deleted successfully
@@ -104,6 +122,7 @@ paths:
       security:
         - bearerAuth: []
       requestBody:
+        required: true
         content:
           schema:
             $ref: '#/components/schemas/Order'
@@ -121,11 +140,17 @@ paths:
           description: 'orders retrieved successfully'
         "404":
           description: 'orders not found'
-  /api/v1/order/:id:
+  /api/v1/order/{orderId}:
     get:
       summary: Get a single order
       security:
         - bearerAuth: []
+      parameters: 
+        - name : orderId
+          in: path
+          required: true
+          schema:
+           type: string
       responses:
         "200":
           description: "order retrieved successfully"
@@ -135,6 +160,17 @@ paths:
       summary: Update an order
       security:
         -bearerAuth: []
+      parameters: 
+        - name : orderId
+          in: path
+          required: true
+          schema:
+           type: string
+      requestBody:
+        required: true
+        content:
+          schema:
+            $ref: '#/components/schemas/Order'
       responses:
         "200":
           description: "order updated successfully"
@@ -147,6 +183,7 @@ paths:
       security:
         - bearerAuth: []
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -157,24 +194,39 @@ paths:
         '400':
           description: Bad request
 
-  /api/v1/organisation/:orgId/:userId:
+  /api/v1/organisation/{orgId}/{userId}:
       post:
         summary: add a user to an organisation
         security:
          - bearerAuth: []
-        params: orgId,userId
+        parameters:
+        - name: orgId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
         responses:
           "201":
             description: user added successful
           '400':
             description: Bad request         
   
-  /api/v1/organisation/:orgId: 
+  /api/v1/organisation/{orgId}: 
     get:
       summary: Get an organisation
       security:
        - bearerAuth: []
-      params: orgId
+      parameters:
+        - name: orgId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
       "200":
         description: Organisation found
@@ -184,8 +236,14 @@ paths:
       summary: Update Organisation account
       security:
         - bearerAuth: []
-      params: orgId
+      parameters:
+        - name: orgId
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
+        required: true
         content:
           schema:
             $ref: '#/components/schemas/Organisation'
@@ -205,12 +263,17 @@ paths:
         "404":
           description: Organisation not found 
   
-  /api/v1/organisation/:userId:
+  /api/v1/organisation/{userId}:
     get:
       summary: Get all organisation a user belongs
       security:
        - bearerAuth: []
-      params: userId
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
       "200":
         description: Organisations found
@@ -222,6 +285,7 @@ paths:
       security:
         bearerAuth: []
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -246,12 +310,17 @@ paths:
           description: Internal server error
         "404":
           description: Not found
-  /api/v1/payment/:paymentId:
+  /api/v1/payment/{paymentId}:
     get:
       summary: Get a single payment
       security:
         bearerAuth: []
-      params: paymentId
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: Payments retrieved successfully
@@ -265,8 +334,14 @@ paths:
       summary: Update payment details
       security:
         - bearerAuth: []
-      params: paymentId
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
+        required: true
         content:
           schema:
             $ref: '#/components/schemas/Payment'
@@ -279,7 +354,12 @@ paths:
       summary: delete a single payment
       security:
         - bearerAuth: []
-      params: userId
+      parameters:
+      - name: paymentId
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: Payment deleted successfully
