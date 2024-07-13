@@ -366,6 +366,184 @@ paths:
           description: Payment deleted successfully
         "404":
           description: Payment not found
+  /api/v1/blog_post:
+    post:
+      summary: Make a blog post
+      security:
+        bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Blog_post"
+      responses:
+        "201":
+          description: Blog post created successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    get:
+      summary: Get all blog posts
+      security:
+        bearerAuth: []
+      responses:
+        "200":
+          description: Payments retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+  /api/v1/blog_post/{blogPostId}:
+    get:
+      summary: Get a single blog post
+      security:
+        bearerAuth: []
+      parameters:
+        - name: blogPostId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Blog post retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+    patch:
+      summary: Update blog post
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: blogPostId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          schema:
+            $ref: "#/components/schemas/Blog_post"
+      responses:
+        "200":
+          description: Blog post updated successfully
+        "404":
+          description: Blog post with supplied ID not found
+    delete:
+      summary: delete a single blog post
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: blogPostId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Blog post deleted successfully
+        "404":
+          description: Blog post not found
+  /api/v1/comments/{blogPostId}:
+    post:
+      summary: Comment on blog post
+      security:
+        bearerAuth: []
+      parameters:
+        - name: blogPostId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Comments"
+      responses:
+        "201":
+          description: Comment submitted successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    get:
+      summary: Get all comments on a blog post
+      security:
+        bearerAuth: []
+      responses:
+        "200":
+          description: Comments retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+  /api/v1/blog_post/{commentId}:
+    get:
+      summary: Get a single comment
+      security:
+        bearerAuth: []
+      parameters:
+        - name: commentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Comment retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+    patch:
+      summary: Update comment
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: commentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          schema:
+            $ref: "#/components/schemas/Comment"
+      responses:
+        "200":
+          description: Comment updated successfully
+        "404":
+          description: Comment with supplied ID not found
+    delete:
+      summary: delete a single comment
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: commentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Comment deleted successfully
+        "404":
+          description: Comment not found
 components:
   securitySchemes:
     bearerAuth:
