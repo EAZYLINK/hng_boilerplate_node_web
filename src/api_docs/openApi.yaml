@@ -95,8 +95,9 @@ paths:
             type: string
       requestBody:
         content:
-          schema:
-            $ref: "#/components/schemas/User"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
       responses:
         "200":
           description: Account updated successfully
@@ -125,8 +126,9 @@ paths:
       requestBody:
         required: true
         content:
-          schema:
-            $ref: "#/components/schemas/Order"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
       responses:
         "200":
           description: "order successfully created"
@@ -160,7 +162,7 @@ paths:
     patch:
       summary: Update an order
       security:
-        -bearerAuth: []
+        - bearerAuth: []
       parameters:
         - name: orderId
           in: path
@@ -170,14 +172,14 @@ paths:
       requestBody:
         required: true
         content:
-          schema:
-            $ref: "#/components/schemas/Order"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
       responses:
         "200":
           description: "order updated successfully"
         "404":
           description: "order not found"
-
   /api/v1/organisation:
     post:
       summary: Create an organisation
@@ -229,10 +231,10 @@ paths:
           schema:
             type: string
       responses:
-      "200":
-        description: Organisation found
-      "404":
-        description: Organisation not found
+        "200":
+          description: Organisation found
+        "404":
+          description: Organisation not found
     patch:
       summary: Update Organisation account
       security:
@@ -246,8 +248,9 @@ paths:
       requestBody:
         required: true
         content:
-          schema:
-            $ref: "#/components/schemas/Organisation"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Organisation"
       responses:
         "200":
           description: Organisation  updated successfully
@@ -257,13 +260,17 @@ paths:
       summary: delete a single Organisation account
       security:
         - bearerAuth: []
-      params: orgId
+      parameters:
+        - name: orgId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: Organisation deleted successfully
         "404":
           description: Organisation not found
-
   /api/v1/organisation/{userId}:
     get:
       summary: Get all organisation a user belongs
@@ -276,15 +283,15 @@ paths:
           schema:
             type: string
       responses:
-      "200":
-        description: Organisations found
-      "404":
-        description: Organisation not found
+        "200":
+          description: Organisations found
+        "404":
+          description: Organisation not found
   /api/v1/payment:
     post:
       summary: Make payment for an order
       security:
-        bearerAuth: []
+      - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -301,7 +308,7 @@ paths:
     get:
       summary: Get all payments
       security:
-        bearerAuth: []
+      - bearerAuth: []
       responses:
         "200":
           description: Payments retrieved successfully
@@ -315,9 +322,9 @@ paths:
     get:
       summary: Get a single payment
       security:
-        bearerAuth: []
+      - bearerAuth: []
       parameters:
-        - name: userId
+        - name: paymentId
           in: path
           required: true
           schema:
@@ -336,7 +343,7 @@ paths:
       security:
         - bearerAuth: []
       parameters:
-        - name: userId
+        - name: paymentId
           in: path
           required: true
           schema:
@@ -344,8 +351,9 @@ paths:
       requestBody:
         required: true
         content:
-          schema:
-            $ref: "#/components/schemas/Payment"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Payment"
       responses:
         "200":
           description: Payment updated successfully
@@ -370,7 +378,7 @@ paths:
     post:
       summary: Make a blog post
       security:
-        bearerAuth: []
+      - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -387,7 +395,7 @@ paths:
     get:
       summary: Get all blog posts
       security:
-        bearerAuth: []
+      - bearerAuth: []
       responses:
         "200":
           description: Payments retrieved successfully
@@ -401,7 +409,7 @@ paths:
     get:
       summary: Get a single blog post
       security:
-        bearerAuth: []
+      - bearerAuth: []
       parameters:
         - name: blogPostId
           in: path
@@ -430,8 +438,9 @@ paths:
       requestBody:
         required: true
         content:
-          schema:
-            $ref: "#/components/schemas/Post"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
       responses:
         "200":
           description: Blog post updated successfully
@@ -456,7 +465,7 @@ paths:
     post:
       summary: Comment on blog post
       security:
-        bearerAuth: []
+      - bearerAuth: []
       parameters:
         - name: blogPostId
           in: path
@@ -479,7 +488,13 @@ paths:
     get:
       summary: Get all comments on a blog post
       security:
-        bearerAuth: []
+      - bearerAuth: []
+      parameters:
+        - name: blogPostId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: Comments retrieved successfully
@@ -493,7 +508,7 @@ paths:
     get:
       summary: Get a single comment
       security:
-        bearerAuth: []
+      - bearerAuth: []
       parameters:
         - name: commentId
           in: path
@@ -522,8 +537,9 @@ paths:
       requestBody:
         required: true
         content:
-          schema:
-            $ref: "#/components/schemas/Comment"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Comment"
       responses:
         "200":
           description: Comment updated successfully
@@ -555,7 +571,7 @@ components:
       properties:
         id:
           type: integer
-          format: int64
+          format: number
         username:
           type: string
         email:
@@ -582,15 +598,15 @@ components:
       type: object
       properties:
         productId:
-          type: int64
+          type: number
         userID:
-          type: int64
+          type: number
         status:
           type: string
         quantity:
-          type: int64
+          type: number
         totalPrice:
-          type: int64
+          type: number
     Organisation:
       type: object
       properties:
@@ -599,25 +615,25 @@ components:
         description:
           type: string
         users:
-          type: int64
+          type: number
     Payment:
       type: object
       properties:
         userId:
-          type: int64
+          type: number
         transactionId:
-          type: int64
+          type: number
         gatewayId:
-          type: int64
+          type: number
         amount:
-          type: int64
+          type: number
         status:
           type: string
     Post:
       type: object
       properties:
         userId:
-          type: int64
+          type: number
         title:
           type: string
         body:
@@ -626,8 +642,8 @@ components:
       type: object
       properties:
         userId:
-          type: int64
+          type: number
         postId:
-          type: int64
+          type: number
         comment:
           type: string
