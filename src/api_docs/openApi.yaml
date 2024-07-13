@@ -1,10 +1,11 @@
 openapi: 3.0.0
 info:
-  title: HNG Openapi Nodejs Docs
+  title: HNG Open-api Nodejs Docs
   version: 1.0.0
   description: Api Documentation for nodejs boilerplate
 servers:
   - url: http://localhost:5000
+    description: Local server
 paths:
   /api/v1/users:
     post:
@@ -44,7 +45,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: "#/components/schemas/Register"
       responses:
         "201":
           description: Account registration successful
@@ -59,7 +60,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: "#/components/schemas/Login"
       responses:
         "200":
           description: login successful
@@ -187,7 +188,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/organisations"
+              $ref: "#/components/schemas/Organisation"
       responses:
         "201":
           description: Organisations created successful
@@ -289,7 +290,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/payment"
+              $ref: "#/components/schemas/Payment"
       responses:
         "201":
           description: payment completed successfully
@@ -436,3 +437,16 @@ components:
           type: string
         users:
           type: int64
+    Payment:
+      type: object
+      properties:
+        userId:
+          type: int64
+        transactionId:
+          type: int64
+        gatewayId:
+          type: int64
+        amount:
+          type: int64
+        status:
+          type: string
