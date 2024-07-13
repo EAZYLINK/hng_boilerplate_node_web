@@ -1,0 +1,649 @@
+openapi: 3.0.0
+info:
+  title: HNG Open-api Nodejs Docs
+  version: 1.0.0
+  description: Api Documentation for nodejs boilerplate
+servers:
+  - url: http://localhost:5000
+    description: Local server
+paths:
+  /api/v1/users:
+    post:
+      summary: create a new user account
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          description: registration successful
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    get:
+      summary: get all users account
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful operation
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+
+  /api/v1/auth/register:
+    post:
+      summary: User creates their account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          description: Account registration successful
+        "400":
+          description: Bad request
+
+  /api/v1/auth/login:
+    post:
+      summary: login a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Login"
+      responses:
+        "200":
+          description: login successful
+        "400":
+          description: Bad request
+
+  /api/v1/user/{userId}:
+    get:
+      summary: Get a single user account
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Account retrieved successfully
+        "404":
+          description: Account not found
+    patch:
+      summary: Update user account
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: Account updated successfully
+        "404":
+          description: Account with supplied ID not found
+    delete:
+      summary: delete a single user account
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Account deleted successfully
+        "404":
+          description: Account not found
+  /api/v1/order:
+    post:
+      summary: Create an order
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: "order successfully created"
+        "404":
+          description: "order not created"
+    get:
+      summary: Get all orders
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "orders retrieved successfully"
+        "404":
+          description: "orders not found"
+  /api/v1/order/{orderId}:
+    get:
+      summary: Get a single order
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "order retrieved successfully"
+        "404":
+          description: "order not found"
+    patch:
+      summary: Update an order
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: "order updated successfully"
+        "404":
+          description: "order not found"
+  /api/v1/organisation:
+    post:
+      summary: Create an organisation
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Organisation"
+      responses:
+        "201":
+          description: Organisations created successful
+        "400":
+          description: Bad request
+
+  /api/v1/organisation/{orgId}/{userId}:
+    post:
+      summary: add a user to an organisation
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orgId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: user added successful
+        "400":
+          description: Bad request
+
+  /api/v1/organisation/{orgId}:
+    get:
+      summary: Get an organisation
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orgId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Organisation found
+        "404":
+          description: Organisation not found
+    patch:
+      summary: Update Organisation account
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orgId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Organisation"
+      responses:
+        "200":
+          description: Organisation  updated successfully
+        "404":
+          description: Organisation with supplied ID not found
+    delete:
+      summary: delete a single Organisation account
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orgId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Organisation deleted successfully
+        "404":
+          description: Organisation not found
+  /api/v1/organisation/{userId}:
+    get:
+      summary: Get all organisation a user belongs
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Organisations found
+        "404":
+          description: Organisation not found
+  /api/v1/payment:
+    post:
+      summary: Make payment for an order
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Payment"
+      responses:
+        "201":
+          description: payment completed successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    get:
+      summary: Get all payments
+      security:
+      - bearerAuth: []
+      responses:
+        "200":
+          description: Payments retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+  /api/v1/payment/{paymentId}:
+    get:
+      summary: Get a single payment
+      security:
+      - bearerAuth: []
+      parameters:
+        - name: paymentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Payments retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+    patch:
+      summary: Update payment details
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: paymentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Payment"
+      responses:
+        "200":
+          description: Payment updated successfully
+        "404":
+          description: Payment with supplied ID not found
+    delete:
+      summary: delete a single payment
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: paymentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Payment deleted successfully
+        "404":
+          description: Payment not found
+  /api/v1/blog_post:
+    post:
+      summary: Make a blog post
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        "201":
+          description: Blog post created successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    get:
+      summary: Get all blog posts
+      security:
+      - bearerAuth: []
+      responses:
+        "200":
+          description: Payments retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+  /api/v1/blog_post/{blogPostId}:
+    get:
+      summary: Get a single blog post
+      security:
+      - bearerAuth: []
+      parameters:
+        - name: blogPostId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Blog post retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+    patch:
+      summary: Update blog post
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: blogPostId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        "200":
+          description: Blog post updated successfully
+        "404":
+          description: Blog post with supplied ID not found
+    delete:
+      summary: delete a single blog post
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: blogPostId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Blog post deleted successfully
+        "404":
+          description: Blog post not found
+  /api/v1/comments/{blogPostId}:
+    post:
+      summary: Comment on blog post
+      security:
+      - bearerAuth: []
+      parameters:
+        - name: blogPostId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Comment"
+      responses:
+        "201":
+          description: Comment submitted successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+    get:
+      summary: Get all comments on a blog post
+      security:
+      - bearerAuth: []
+      parameters:
+        - name: blogPostId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Comments retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+  /api/v1/blog_post/{commentId}:
+    get:
+      summary: Get a single comment
+      security:
+      - bearerAuth: []
+      parameters:
+        - name: commentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Comment retrieved successfully
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+        "404":
+          description: Not found
+    patch:
+      summary: Update comment
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: commentId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Comment"
+      responses:
+        "200":
+          description: Comment updated successfully
+        "404":
+          description: Comment with supplied ID not found
+    delete:
+      summary: delete a single comment
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: commentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Comment deleted successfully
+        "404":
+          description: Comment not found
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: number
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - username
+        - email
+        - password
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - email
+        - password
+    Order:
+      type: object
+      properties:
+        productId:
+          type: number
+        userID:
+          type: number
+        status:
+          type: string
+        quantity:
+          type: number
+        totalPrice:
+          type: number
+    Organisation:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        users:
+          type: number
+    Payment:
+      type: object
+      properties:
+        userId:
+          type: number
+        transactionId:
+          type: number
+        gatewayId:
+          type: number
+        amount:
+          type: number
+        status:
+          type: string
+    Post:
+      type: object
+      properties:
+        userId:
+          type: number
+        title:
+          type: string
+        body:
+          type: string
+    Comment:
+      type: object
+      properties:
+        userId:
+          type: number
+        postId:
+          type: number
+        comment:
+          type: string

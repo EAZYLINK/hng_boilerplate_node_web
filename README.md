@@ -4,6 +4,14 @@
 
 [Description]
 
+## Database Schema
+
+![Database Schema](src/dataBase/hng_dbschema.png "Database Schema")
+
+## Api Documentation
+
+[Api documentation](https://app.swaggerhub.com/apis/EAZY4LIFE2017/hng-openapi_nodejs_docs/1.0.0)
+
 ## Folder Structure
 
 ```
