@@ -6,10 +6,10 @@
 
 
 ## Database Schema
-![Database Schema](blob/team_jupiter/src/database/hng_dbschema.png "Database Schema")
+![Database Schema](src/database/hng_dbschema.png "Database Schema")
 
 ## Api Documentation
-[Api documentation](blob/team_jupiter/src/api_docs/openApi.yaml)
+[Api documentation](src/api_docs/openApi.yaml)
 
 ## Folder Structure
 
