@@ -13,56 +13,56 @@ paths:
         - bearerAuth: []
       requestBody:
         content:
-         application/json:
-          schema:
-           $ref: '#/components/schemas/User'
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
       responses:
         "201":
           description: registration successful
-        '400':
+        "400":
           description: Bad request
-        '500':
+        "500":
           description: Internal server error
     get:
       summary: get all users account
       security:
         - bearerAuth: []
       responses:
-        '200':
+        "200":
           description: Successful operation
-        '401':
+        "401":
           description: Unauthorized
-        '403':
+        "403":
           description: Forbidden
-  
+
   /api/v1/auth/register:
     post:
       summary: User creates their account
       requestBody:
         content:
-         application/json:
-          schema:
-           $ref: '#/components/schemas/User'
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
       responses:
         "201":
           description: Account registration successful
-        '400':
+        "400":
           description: Bad request
-  
-  /api/v1/auth/login:  
+
+  /api/v1/auth/login:
     post:
       summary: login a user
       requestBody:
         content:
-         application/json:
-          schema:
-           $ref: '#/components/schemas/User'
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
       responses:
         "200":
           description: login successful
-        "400": 
+        "400":
           description: Bad request
-  
+
   /api/v1/user/:userId:
     get:
       summary: Get a single user account
@@ -82,7 +82,7 @@ paths:
       requestBody:
         content:
           schema:
-            $ref: '#/components/schemas/User'
+            $ref: "#/components/schemas/User"
       responses:
         "200":
           description: Account updated successfully
@@ -106,21 +106,21 @@ paths:
       requestBody:
         content:
           schema:
-            $ref: '#/components/schemas/Order'
+            $ref: "#/components/schemas/Order"
       responses:
-        "200": 
-          description: 'order successfully created'
+        "200":
+          description: "order successfully created"
         "404":
-          description: 'order not created'
+          description: "order not created"
     get:
       summary: Get all orders
-      security: 
+      security:
         - bearerAuth: []
       responses:
         "200":
-          description: 'orders retrieved successfully'
+          description: "orders retrieved successfully"
         "404":
-          description: 'orders not found'
+          description: "orders not found"
   /api/v1/order/:id:
     get:
       summary: Get a single order
@@ -150,30 +150,30 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/organisations'
+              $ref: "#/components/schemas/organisations"
       responses:
         "201":
           description: Organisations created successful
-        '400':
+        "400":
           description: Bad request
 
   /api/v1/organisation/:orgId/:userId:
-      post:
-        summary: add a user to an organisation
-        security:
-         - bearerAuth: []
-        params: orgId,userId
-        responses:
-          "201":
-            description: user added successful
-          '400':
-            description: Bad request         
-  
-  /api/v1/organisation/:orgId: 
+    post:
+      summary: add a user to an organisation
+      security:
+        - bearerAuth: []
+      params: orgId,userId
+      responses:
+        "201":
+          description: user added successful
+        "400":
+          description: Bad request
+
+  /api/v1/organisation/:orgId:
     get:
       summary: Get an organisation
       security:
-       - bearerAuth: []
+        - bearerAuth: []
       params: orgId
       responses:
       "200":
@@ -188,7 +188,7 @@ paths:
       requestBody:
         content:
           schema:
-            $ref: '#/components/schemas/Organisation'
+            $ref: "#/components/schemas/Organisation"
       responses:
         "200":
           description: Organisation  updated successfully
@@ -203,19 +203,19 @@ paths:
         "200":
           description: Organisation deleted successfully
         "404":
-          description: Organisation not found 
-  
+          description: Organisation not found
+
   /api/v1/organisation/:userId:
     get:
       summary: Get all organisation a user belongs
       security:
-       - bearerAuth: []
+        - bearerAuth: []
       params: userId
       responses:
       "200":
         description: Organisations found
       "404":
-        description: Organisation not found   
+        description: Organisation not found
   /api/v1/payment:
     post:
       summary: Make payment for an order
@@ -225,7 +225,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/payment'
+              $ref: "#/components/payment"
       responses:
         "201":
           description: payment completed successfully
@@ -261,7 +261,7 @@ paths:
           description: Internal server error
         "404":
           description: Not found
-    patch: 
+    patch:
       summary: Update payment details
       security:
         - bearerAuth: []
@@ -269,7 +269,7 @@ paths:
       requestBody:
         content:
           schema:
-            $ref: '#/components/schemas/Payment'
+            $ref: "#/components/schemas/Payment"
       responses:
         "200":
           description: Payment updated successfully
@@ -290,5 +290,69 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-
-        
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - id
+        - username
+        - email
+        - password
+    Register:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - username
+        - email
+        - password
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - email
+        - password
+    Order:
+      type: object
+      properties:
+        productId:
+          type: int64
+        userID:
+          type: int64
+        status:
+          type: string
+        quantity:
+          type: int64
+        totalPrice:
+          type: int64
+    Organisation:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        users:
+          type: int64
