@@ -98,9 +98,6 @@ paths:
           description: Account deleted successfully
         "404":
           description: Account not found
-<<<<<<< HEAD
-          
-=======
   /api/v1/order:
     post:
       summary: Create an order
@@ -144,7 +141,6 @@ paths:
         "404":
           description: "order not found"
 
->>>>>>> a2cb6ba1431742747d077a2b215c51e0ca039267
   /api/v1/organisation:
     post:
       summary: Create an organisation
